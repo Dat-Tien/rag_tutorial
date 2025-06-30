@@ -26,16 +26,20 @@ with gr.Blocks() as demo:
     gr.Markdown("# Web Page Q&A Assistant using RAG")
     
     with gr.Row():
-        url_input = gr.Textbox(label="Web Page URL")
+        with gr.Column():
+            url_input = gr.Textbox(label="Web Page URL")
+            process_output = gr.Textbox(label="Status")
         process_btn = gr.Button("Process URL")
-    
-    process_output = gr.Textbox(label="Status")
-    
+
     process_btn.click(fn=load_and_process_url, inputs=url_input, outputs=process_output)
 
-    question_input = gr.Textbox(label="Ask a Question")
+    with gr.Row():
+        question_input = gr.Textbox(label="Ask a Question")
+        answer_btn = gr.Button("Anser Question")
+    
     answer_output = gr.Textbox(label="Answer")
 
-    question_input.change(fn=answer_question, inputs=question_input, outputs=answer_output)
+    answer_btn.click(fn=answer_question, inputs=question_input, outputs=answer_output)
 
-demo.launch()
+if __name__ == "__main__":
+    demo.launch() 
